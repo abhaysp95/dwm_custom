@@ -7,15 +7,15 @@ static unsigned int snap            = 32;       /* snap pixel */
 static int showbar                  = 1;        /* 0 means no bar */
 static int topbar                   = 1;        /* 0 means bottom bar */
 static const unsigned int gappx     = 6;        /* gaps between windows */
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[]          = { "Source Code Pro:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
-static char normbgcolor[]           = "#222222";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
-static const unsigned int baralpha = 0xd0;
+static char normbgcolor[]           = "#282828";
+static char normbordercolor[]       = "#928374";
+static char normfgcolor[]           = "#ebdbb2";
+static char selfgcolor[]            = "#282828";
+static char selbordercolor[]        = "#d8a657";
+static char selbgcolor[]            = "#d8a657";
+static const unsigned int baralpha = 0xff;
 static const unsigned int borderalpha = OPAQUE;
 static char *colors[][3] = {
        /*               fg           bg           border   */
