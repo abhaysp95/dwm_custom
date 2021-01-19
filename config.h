@@ -95,6 +95,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define MODKEYALT Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      toggleview,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      view,     {.ui = 1 << TAG} }, \
@@ -143,7 +144,8 @@ ResourcePref resources[] = {
 };
 
 
-#include <X11/XF86keysym.h>
+#include <X11/XF86keysym.h>  /* for extra keys */
+#include "shiftview.c"
 
 
 static Key keys[] = {
@@ -170,13 +172,15 @@ static Key keys[] = {
 
 	/** spawn commands */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,		        XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,	        XK_Return, spawn,          {.v = sectermcmd } },
 
 	/** volume */
 	{ MODKEY,			XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --up 5") },
 	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --up 15") },
 	{ MODKEY,			XK_equal,	spawn,		SHCMD("notifyChanges.sh --volume --down 5") },
 	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("notifyChanges.sh --volume --down 15") },
+	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("pulsemixer --toggle-mute; notify-send -i ~/.cache/notify-icons/mute.png -t 3000 'Mute Toggled'") },
 
 	/** music related(home row) */
 	{ MODKEY,			XK_p,			spawn,		SHCMD("music.sh") },
@@ -184,7 +188,28 @@ static Key keys[] = {
 	{ MODKEY,			XK_bracketleft,		spawn,		SHCMD("music_seek_next1.sh") },
 	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("music_seek_next2.sh") },
 	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("music_seek_prev1.sh") },
-	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("music_seek_prev1.sh") },
+	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("music_seek_prev2.sh") },
+	{ MODKEY,			XK_comma,		spawn,		SHCMD("music_prev.sh") },
+	{ MODKEY|ShiftMask,		XK_comma,		spawn,		SHCMD("mpc seek 0%") },
+	{ MODKEY,			XK_period,		spawn,		SHCMD("music_next.sh") },
+	{ MODKEY|ShiftMask,		XK_period,		spawn,		SHCMD("mpc repeat") },
+
+	/** brightness */
+	{ MODKEY|ControlMask,		XK_minus,		spawn,		SHCMD("notifyChanges.sh --brightness --down 5") },
+	{ MODKEY|ControlMask,		XK_equal,		spawn,		SHCMD("notifyChanges.sh --brightness --up 5") },
+
+	/** call some other custom scripts */
+	{ MODKEY|ControlMask,		XK_v,		spawn,		SHCMD("pdfbyrofi") },
+	{ MODKEY|ControlMask,		XK_p,		spawn,		SHCMD("videosbyrofi") },
+	{ MODKEY|ControlMask,		XK_m,		spawn,		SHCMD("manbyrofi") },
+
+	/** screenshot and screen recording */
+	{ MODKEY,			XK_Print,		spawn,		SHCMD("sshots --full") },
+	{ MODKEYALT|ControlMask,		XK_Print,		spawn,		SHCMD("sshots --window") },
+	{ MODKEYALT|ShiftMask,		XK_Print,		spawn,		SHCMD("sshots --specific") },
+	{ MODKEY|ShiftMask,		XK_Print,		spawn,		SHCMD("recscreen") },
+	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen --only-video") },
+	{ MODKEY|MODKEYALT,		XK_Print,		spawn,		SHCMD("recscreen --only-audio") },
 
 	/** move up/down in stack */
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -215,42 +240,55 @@ static Key keys[] = {
 	{ MODKEY,			XK_i,		setlayout,	{.v = &layouts[6]} }, /* centeredmaster */
 	{ MODKEY|ShiftMask,		XK_i,		setlayout,	{.v = &layouts[7]} }, /* centeredfloatingmaster */
 	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} }, /* fullscreen */
+	{ MODKEY,                       XK_space,  	setlayout,      {0} },  /* something related to floating */
 
 	/** toggle things */
 	{ MODKEY,			XK_a,		togglegaps,	{0} },  // toggle gaps
 	{ MODKEY,			XK_s,		togglesticky,	{0} },  // toggle sticky mode
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },  // toggle dwm status bar
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },  // toggle fullscreen
+	{ MODKEY|ShiftMask,             XK_space,  	togglefloating, {0} },  // toggle floating mode
 	{ MODKEY,			XK_apostrophe,	togglescratch,	{.ui = 0} },
 	{ MODKEY|ShiftMask,		XK_apostrophe,	togglescratch,	{.ui = 1} },
 
+	/** movement within(for) tags*/
+	{ MODKEY,			XK_g,		shiftview,	{ .i = -1 } },  // go to left tag
+	{ MODKEY|ShiftMask,		XK_g,		shifttag,	{ .i = -1 } },  // move window to left tag
+	{ MODKEY,			XK_semicolon,	shiftview,	{ .i = 1 } },	// go to right tag
+	{ MODKEY|ShiftMask,		XK_semicolon,	shifttag,	{ .i = 1 } },	// move window to right tag
 
+	/** manage gaps */
 	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },  // switch to default gaps
-	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
+	{ MODKEY|Mod4Mask,              XK_z,      	incrgaps,       {.i = +2 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_z,      	incrgaps,       {.i = -2 } },
+	{ MODKEY|Mod4Mask,              XK_x,      	incrigaps,      {.i = +2 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_X,      	incrigaps,      {.i = -2 } },
+	{ MODKEY|Mod4Mask,              XK_c,      	incrogaps,      {.i = +2 } },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_c,      	incrogaps,      {.i = -2 } },
+
+	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
+
+	/** not sure yet */
+	{ MODKEY,                       XK_Left,  focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_Right, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Left,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Right, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_w,      quit,           {0} },
+
+	{ MODKEY,			XK_Page_Up,	shiftview,	{ .i = -1 } },
+	{ MODKEY|ShiftMask,		XK_Page_Up,	shifttag,	{ .i = -1 } },
+	{ MODKEY,			XK_Page_Down,	shiftview,	{ .i = +1 } },
+	{ MODKEY|ShiftMask,		XK_Page_Down,	shifttag,	{ .i = +1 } },
+
+
+	/** { MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_w,      quit,           {0} },
-	{ MODKEY|ControlMask,			XK_c,	   spawn,	   {.v = sectermcmd} },
+	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } }, */
 };
 
 /* button definitions */
