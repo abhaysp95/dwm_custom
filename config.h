@@ -232,7 +232,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_backslash,    view,           {0} },
 
 	/** make node swap with master and vice-versa */
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY|ControlMask,                       XK_Return, zoom,           {0} },
 
 	/** switch layouts */
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} }, /* tile */
