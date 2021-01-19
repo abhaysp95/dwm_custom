@@ -115,7 +115,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-i", "-p", "exec:", "-c", "-l", "25", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
-/* User defined commnads */ 
+/* User defined commnads */
 static const char* sectermcmd[] = { "termite", NULL };
 
 /*
@@ -176,10 +176,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,	        XK_Return, spawn,          {.v = sectermcmd } },
 
 	/** volume */
-	{ MODKEY,			XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --up 5") },
-	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --up 15") },
-	{ MODKEY,			XK_equal,	spawn,		SHCMD("notifyChanges.sh --volume --down 5") },
-	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("notifyChanges.sh --volume --down 15") },
+	{ MODKEY,			XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --down 5") },
+	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --down 15") },
+	{ MODKEY,			XK_equal,	spawn,		SHCMD("notifyChanges.sh --volume --up 5") },
+	{ MODKEY|ShiftMask,		XK_equal,	spawn,		SHCMD("notifyChanges.sh --volume --up 15") },
 	{ MODKEY|ShiftMask,		XK_m,		spawn,		SHCMD("pulsemixer --toggle-mute; notify-send -i ~/.cache/notify-icons/mute.png -t 3000 'Mute Toggled'") },
 
 	/** music related(home row) */
