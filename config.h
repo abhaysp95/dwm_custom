@@ -97,8 +97,8 @@ static const Layout layouts[] = {
 #define MODKEY Mod4Mask
 #define MODKEYALT Mod1Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      toggleview,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      view,     {.ui = 1 << TAG} }, \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 #define STACKKEYS(MOD,ACTION) \
@@ -199,13 +199,13 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,		XK_equal,		spawn,		SHCMD("notifyChanges.sh --brightness --up 5") },
 
 	/** call some other custom scripts */
-	{ MODKEY|ControlMask,		XK_v,		spawn,		SHCMD("pdfbyrofi") },
-	{ MODKEY|ControlMask,		XK_p,		spawn,		SHCMD("videosbyrofi") },
-	{ MODKEY|ControlMask,		XK_m,		spawn,		SHCMD("manbyrofi") },
+	{ MODKEY|ControlMask,		XK_v,			spawn,		SHCMD("pdfbyrofi") },
+	{ MODKEY|ControlMask,		XK_p,			spawn,		SHCMD("videosbyrofi") },
+	{ MODKEY|ControlMask,		XK_m,			spawn,		SHCMD("manbyrofi") },
 
 	/** screenshot and screen recording */
 	{ MODKEY,			XK_Print,		spawn,		SHCMD("sshots --full") },
-	{ MODKEYALT|ControlMask,		XK_Print,		spawn,		SHCMD("sshots --window") },
+	{ MODKEYALT|ControlMask,	XK_Print,		spawn,		SHCMD("sshots --window") },
 	{ MODKEYALT|ShiftMask,		XK_Print,		spawn,		SHCMD("sshots --specific") },
 	{ MODKEY|ShiftMask,		XK_Print,		spawn,		SHCMD("recscreen") },
 	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen --only-video") },
