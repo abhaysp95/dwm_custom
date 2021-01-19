@@ -6,7 +6,6 @@ static unsigned int borderpx        = 1;        /* border pixel of windows */
 static unsigned int snap            = 32;       /* snap pixel */
 static int showbar                  = 1;        /* 0 means no bar */
 static int topbar                   = 1;        /* 0 means bottom bar */
-static const unsigned int gappx     = 6;        /* gaps between windows */
 static const char *fonts[]          = { "Source Code Pro:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
 static char normbgcolor[]           = "#282828";
@@ -69,6 +68,10 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+/* User defined commnads */ 
+static const char* getconfigcmd[] = { "get_config.sh", NULL };
+static const char* sectermcmd[] = { "termite", NULL };
+
 /*
  * Xresources preferences to load at startup
  */
@@ -123,6 +126,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_w,      quit,           {0} },
+	{ MODKEY|ControlMask,			XK_c,	   spawn,	   {.v = sectermcmd} },
 };
 
 /* button definitions */
