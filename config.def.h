@@ -202,6 +202,10 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,		XK_v,			spawn,		SHCMD("pdfbyrofi") },
 	{ MODKEY|ControlMask,		XK_p,			spawn,		SHCMD("videosbyrofi") },
 	{ MODKEY|ControlMask,		XK_m,			spawn,		SHCMD("manbyrofi") },
+	{ MODKEY|ControlMask,		XK_y,			spawn,		SHCMD("ympv.sh") },
+
+	/** toggle screenkey */
+	{ MODKEY,			XK_Scroll_Lock,		spawn,		SHCMD("killall screenkey || screenkey -s small --font-size small -g 300x80+1000+0 &") },
 
 	/** screenshot and screen recording */
 	{ MODKEY,			XK_Print,		spawn,		SHCMD("sshots --full") },
