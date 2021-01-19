@@ -71,12 +71,12 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },		/* All windows on top of each other */
 	{ "|M|",      centeredmaster },		/* Master in middle, slaves on sides */
 	{ ">M>",      centeredfloatingmaster },	/* same as above, but master floates */
+	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "===",      bstackhoriz },
 	{ "HHH",      grid },
 	{ "###",      nrowgrid },
 	{ "---",      horizgrid },
 	{ ":::",      gaplessgrid },
-	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
 
@@ -100,8 +100,6 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 // static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-i", "-p", "exec:", "-c", "-l", "25", NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
 /* User defined commnads */ 
 static const char* sectermcmd[] = { "termite", NULL };
@@ -160,9 +158,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 
-	/** scratch */
-	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
-
 	/** volume */
 	{ MODKEY,			XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --up 5") },
 	{ MODKEY|ShiftMask,		XK_minus,	spawn,		SHCMD("notifyChanges.sh --volume --up 15") },
@@ -205,12 +200,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_u,		setlayout,	{.v = &layouts[5]} }, /* monocle */
 	{ MODKEY,			XK_i,		setlayout,	{.v = &layouts[6]} }, /* centeredmaster */
 	{ MODKEY|ShiftMask,		XK_i,		setlayout,	{.v = &layouts[7]} }, /* centeredfloatingmaster */
+	{ MODKEY|ShiftMask,		XK_f,		setlayout,	{.v = &layouts[8]} }, /* fullscreen */
 
 	/** toggle things */
 	{ MODKEY,			XK_a,		togglegaps,	{0} },  // toggle gaps
 	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },  // switch to default gaps
 	{ MODKEY,			XK_s,		togglesticky,	{0} },  // toggle sticky mode
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },  // toggle dwm status bar
+	{ MODKEY,			XK_f,		togglefullscr,	{0} },  // toggle fullscreen
+
 
 	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
