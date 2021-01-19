@@ -37,6 +37,18 @@ static const unsigned int alphas[][3]      = {
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
 };
 
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {TERMINAL, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+	{"spcalc",      spcmd2},
+};
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
@@ -46,10 +58,11 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
+	{ "Gimp",     NULL,       NULL,       	    1 << 8,       0,           0,         0,        -1 },
+	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
+	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
+	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
+	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
 };
 
 /* layout(s) */
@@ -132,6 +145,7 @@ ResourcePref resources[] = {
 
 #include <X11/XF86keysym.h>
 
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
@@ -204,12 +218,14 @@ static Key keys[] = {
 
 	/** toggle things */
 	{ MODKEY,			XK_a,		togglegaps,	{0} },  // toggle gaps
-	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },  // switch to default gaps
 	{ MODKEY,			XK_s,		togglesticky,	{0} },  // toggle sticky mode
 	{ MODKEY,                       XK_b,      	togglebar,      {0} },  // toggle dwm status bar
 	{ MODKEY,			XK_f,		togglefullscr,	{0} },  // toggle fullscreen
+	{ MODKEY,			XK_apostrophe,	togglescratch,	{.ui = 0} },
+	{ MODKEY|ShiftMask,		XK_apostrophe,	togglescratch,	{.ui = 1} },
 
 
+	{ MODKEY|ShiftMask,		XK_a,		defaultgaps,	{0} },  // switch to default gaps
 	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
@@ -248,6 +264,7 @@ static Button buttons[] = {
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        toggleview,           {0} },
 	{ ClkTagBar,            0,              Button3,        view,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
