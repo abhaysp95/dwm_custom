@@ -1,5 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Constants */
+#define TERMINAL "st"
+#define TERMCLASS "St"
+
 /* appearance */
 
 static unsigned int borderpx        = 2;        /* border pixel of windows */
@@ -31,6 +35,19 @@ static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+};
+
+typedef struct {
+	const char* name;
+	const void* command;
+} Spd;
+
+const char* spdcmd1[] = { TERMINAL, "-n", "spdterm", "-g", "120x40", NULL };
+const char* spdcmd2[] = { TERMINAL, "-n", "spdcalc", "-g", "50x20", "-f", "monospace:size=16", "-e", "bc", "-lq", NULL };
+static Spd scratchpads[] = {
+	/** name	command */
+	{"spdterm",	spdcmd1},
+	{"spdcalc", 	spdcmd2},
 };
 
 /* tagging */
