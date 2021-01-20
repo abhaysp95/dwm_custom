@@ -60,8 +60,8 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "LibreWolf",    NULL,       NULL,       	    1 << 1,       0,           0,         0,        -1 },
 	{ "TelegramDesktop",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
-	{ "Zathura",    NULL,       NULL,       	    1 << 3,       1,           0,         0,        -1 },
-	{ "mpv",    NULL,       NULL,       	    1 << 6,       1,           0,         0,        -1 },
+	{ "Zathura",    NULL,       NULL,       	    1 << 8,       1,           0,         0,        -1 },
+	{ "mpv",    NULL,       NULL,       	    1 << 3,       1,           0,         0,        -1 },
 	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
@@ -150,6 +150,7 @@ ResourcePref resources[] = {
 #include "shiftview.c"
 
 
+#include "movestack.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 
@@ -217,9 +218,9 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen --only-video") },
 	{ MODKEY|MODKEYALT,		XK_Print,		spawn,		SHCMD("recscreen --only-audio") },
 
-	/** move up/down in stack */
-	//{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	//{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	/** move nodes up/down in stack */
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 
 	/** increase/decrease numbers of stack of master */
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
