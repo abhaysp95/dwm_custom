@@ -60,6 +60,8 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "LibreWolf",    NULL,       NULL,       	    1 << 1,       0,           0,         0,        -1 },
 	{ "TelegramDesktop",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
+	{ "Zathura",    NULL,       NULL,       	    1 << 3,       1,           0,         0,        -1 },
+	{ "mpv",    NULL,       NULL,       	    1 << 6,       1,           0,         0,        -1 },
 	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
 	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
 	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
@@ -112,7 +114,6 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-// static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-i", "-p", "exec:", "-c", "-l", "25", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
@@ -200,9 +201,9 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,		XK_equal,		spawn,		SHCMD("notifyChanges.sh --brightness --up 5") },
 
 	/** call some other custom scripts */
-	{ MODKEY|ControlMask,		XK_v,			spawn,		SHCMD("pdfbyrofi") },
-	{ MODKEY|ControlMask,		XK_p,			spawn,		SHCMD("videosbyrofi") },
-	{ MODKEY|ControlMask,		XK_m,			spawn,		SHCMD("manbyrofi") },
+	{ MODKEY|ControlMask,		XK_p,			spawn,		SHCMD("pdfdmenu") },
+	{ MODKEY|ControlMask,		XK_v,			spawn,		SHCMD("videosdmenu") },
+	{ MODKEY|ControlMask,		XK_m,			spawn,		SHCMD("mandmenu") },
 	{ MODKEY|ControlMask,		XK_y,			spawn,		SHCMD("ympv.sh") },
 
 	/** toggle screenkey */
@@ -217,8 +218,8 @@ static Key keys[] = {
 	{ MODKEY|MODKEYALT,		XK_Print,		spawn,		SHCMD("recscreen --only-audio") },
 
 	/** move up/down in stack */
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	//{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	//{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 
 	/** increase/decrease numbers of stack of master */
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
