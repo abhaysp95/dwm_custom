@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "kitty"
-#define TERMCLASS "Kitty"
+#define TERMINAL "st"
+#define TERMCLASS "St"
 
 /* appearance */
 
@@ -115,7 +115,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-i", "-p", "exec:", "-c", "-l", "25", NULL };
-static const char *termcmd[]  = { TERMINAL , NULL };
+static const char *termcmd[]  = { "kitty" , NULL };
 
 /* User defined commnads */
 static const char* sectermcmd[] = { "termite", NULL };
@@ -188,10 +188,10 @@ static Key keys[] = {
 	/** music related(home row) */
 	{ MODKEY,			XK_p,			spawn,		SHCMD("music.sh") },
 	{ MODKEY|ShiftMask,		XK_p,			spawn,		SHCMD("mpc pause ; pauseallmpv") },
-	{ MODKEY,			XK_bracketleft,		spawn,		SHCMD("music_seek_next1.sh") },
-	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("music_seek_next2.sh") },
-	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("music_seek_prev1.sh") },
-	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("music_seek_prev2.sh") },
+	{ MODKEY,			XK_bracketleft,		spawn,		SHCMD("music_seek_prev1.sh") },
+	{ MODKEY|ShiftMask,		XK_bracketleft,		spawn,		SHCMD("music_seek_prev2.sh") },
+	{ MODKEY,			XK_bracketright,	spawn,		SHCMD("music_seek_next1.sh") },
+	{ MODKEY|ShiftMask,		XK_bracketright,	spawn,		SHCMD("music_seek_next2.sh") },
 	{ MODKEY,			XK_comma,		spawn,		SHCMD("music_prev.sh") },
 	{ MODKEY|ShiftMask,		XK_comma,		spawn,		SHCMD("mpc seek 0%") },
 	{ MODKEY,			XK_period,		spawn,		SHCMD("music_next.sh") },
