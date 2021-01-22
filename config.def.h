@@ -6,13 +6,13 @@
 
 /* appearance */
 
-static unsigned int borderpx		= 2;        /* border pixel of windows */
+static unsigned int borderpx		= 3;        /* border pixel of windows */
 static unsigned int snap            	= 32;       /* snap pixel */
 static int swallowfloating		= 0;        /* 1 means swallow floating windows by default */
-static unsigned int gappih    		= 20;       /* horiz inner gap between windows */
+static unsigned int gappih    		= 10;       /* horiz inner gap between windows */
 static unsigned int gappiv    		= 10;       /* vert inner gap between windows */
-static unsigned int gappoh    		= 10;       /* horiz outer gap between windows and screen edge */
-static unsigned int gappov    		= 20;       /* vert outer gap between windows and screen edge */
+static unsigned int gappoh    		= 8;       /* horiz outer gap between windows and screen edge */
+static unsigned int gappov    		= 8;       /* vert outer gap between windows and screen edge */
 static int smartgaps          		= 1;        /* 1 means no outer gap when there is only one window */
 static int showbar                  	= 1;        /* 0 means no bar */
 static int topbar                   	= 1;        /* 0 means bottom bar */
@@ -24,7 +24,7 @@ static char normfgcolor[]           	= "#bbbbbb";
 static char selfgcolor[]            	= "#eeeeee";
 static char selbordercolor[]        	= "#770000";
 static char selbgcolor[]            	= "#005577";
-static const unsigned int baralpha 	= 0xe7;
+static const unsigned int baralpha 	= 0xff;
 static const unsigned int borderalpha 	= OPAQUE;
 static char *colors[][3] = {
        /*               fg           bg           border   */
@@ -125,7 +125,7 @@ static const char* sectermcmd[] = { "termite", NULL };
  */
 ResourcePref resources[] = {
 		{ "color0", 		STRING,	&normbordercolor },
-		{ "color8",		STRING, &selbordercolor },
+		{ "color4",		STRING, &selbordercolor },
 		{ "color0",        	STRING,  &normbgcolor },
 		{ "color4",        	STRING,  &normfgcolor },
 		{ "color4",         	STRING,  &selbgcolor },
