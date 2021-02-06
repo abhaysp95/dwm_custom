@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "st"
-#define TERMCLASS "St"
+#define TERMINAL "termite"
+#define TERMCLASS "Termite"
 
 /* appearance */
 
@@ -41,8 +41,12 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {TERMINAL, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+/** this will work for st */
+//const char *spcmd1[] = {TERMINAL, "-n", "spterm", "-g", "120x34", NULL };
+//const char *spcmd2[] = {TERMINAL, "-n", "spcalc", "-f", "monospace:size=16", "-g", "50x20", "-e", "bc", "-lq", NULL };
+/** this is for termite */
+const char *spcmd1[] = {TERMINAL, "--name", "spterm", NULL};
+const char *spcmd2[] = {TERMINAL, "--name", "spcalc", "-e", "'bc", "-lq'", NULL};
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",      spcmd1},
@@ -60,6 +64,7 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "LibreWolf",    NULL,       NULL,       	    1 << 1,       0,           0,         0,        -1 },
 	{ "TelegramDesktop",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
+	{ "Lxappearance",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
 	{ "Zathura",    NULL,       NULL,       	    1 << 8,       1,           0,         0,        -1 },
 	{ "mpv",    NULL,       NULL,       	    1 << 3,       1,           0,         0,        -1 },
 	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
@@ -202,13 +207,17 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,		XK_equal,		spawn,		SHCMD("notifyChanges.sh --brightness --up 5") },
 
 	/** call some other custom scripts */
-	{ MODKEY|ControlMask,		XK_p,			spawn,		SHCMD("pdfdmenu") },
-	{ MODKEY|ControlMask,		XK_v,			spawn,		SHCMD("videosdmenu") },
-	{ MODKEY|ControlMask,		XK_m,			spawn,		SHCMD("mandmenu") },
+	{ MODKEY|ControlMask,		XK_p,			spawn,		SHCMD("libdmenu pdfs") },
+	{ MODKEY|ControlMask,		XK_v,			spawn,		SHCMD("libdmenu videos") },
+	{ MODKEY|ControlMask,		XK_m,			spawn,		SHCMD("libdmenu man") },
 	{ MODKEY|ControlMask,		XK_y,			spawn,		SHCMD("ympv.sh") },
 
+	/** launch programs */
+	{ MODKEY|ControlMask,		XK_b,			spawn,		SHCMD("librewolf") },
+	{ MODKEY|ControlMask,		XK_t,			spawn,		SHCMD("telegram-desktop") },
+
 	/** toggle screenkey */
-	{ MODKEY,			XK_Scroll_Lock,		spawn,		SHCMD("killall screenkey || screenkey -s small --font-size small -g 300x80+1000+0 &") },
+	{ MODKEY,			XK_Scroll_Lock,		spawn,		SHCMD("killall screenkey || screenkey -s small --font-size small -g 400x750+900-0 &") },
 
 	/** screenshot and screen recording */
 	{ MODKEY,			XK_Print,		spawn,		SHCMD("sshots --full") },
