@@ -238,6 +238,7 @@ static Key keys[] = {
 	/** resize nodes left/right */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	/** changed dwm.c to reset the width of the node to mfact */
 	{ MODKEY|ControlMask,           XK_i,      setmfact,       {.f  =  0.0} },
 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
