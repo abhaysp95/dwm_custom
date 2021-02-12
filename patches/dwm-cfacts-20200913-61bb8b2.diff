@@ -48,13 +48,13 @@ index 664c527..5233229 100644
  	c->h = c->oldh = wa->height;
  	c->oldbw = wa->border_width;
 +	c->cfact = 1.0;
- 
+
  	updatetitle(c);
  	if (XGetTransientForHint(dpy, w, &trans) && (t = wintoclient(trans))) {
 @@ -1512,6 +1515,23 @@ setlayout(const Arg *arg)
  		drawbar(selmon);
  }
- 
+
 +void setcfact(const Arg *arg) {
 +	float f;
 +	Client *c;
@@ -81,7 +81,7 @@ index 664c527..5233229 100644
  	unsigned int i, n, h, mw, my, ty;
 +	float mfacts = 0, sfacts = 0;
  	Client *c;
- 
+
 -	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 +	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++) {
 +		if (n < m->nmaster)
@@ -91,7 +91,7 @@ index 664c527..5233229 100644
 +	}
  	if (n == 0)
  		return;
- 
+
 @@ -1687,15 +1713,17 @@ tile(Monitor *m)
  		mw = m->ww;
  	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
@@ -111,7 +111,7 @@ index 664c527..5233229 100644
 +     sfacts -= c->cfact;
  		}
  }
- 
--- 
+
+--
 2.28.0
 
