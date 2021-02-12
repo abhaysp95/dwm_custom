@@ -233,12 +233,15 @@ static Key keys[] = {
 
 	/** increase/decrease numbers of stack of master */
 	{ MODKEY,                       XK_o,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_o,      incnmaster,     {.i = -1 } },
 
 	/** resize nodes left/right */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ControlMask            XK_i,      setmfact,       {.f  =  0.0} },
+	{ MODKEY|ControlMask,           XK_i,      setmfact,       {.f  =  0.0} },
+	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
+	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 
 	/** rotate between tags in use */
 	{ MODKEY,                       XK_Tab,    view,           {0} },
