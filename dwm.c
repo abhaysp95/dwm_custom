@@ -244,7 +244,6 @@ static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
 static void setcfact(const Arg *arg);
 static void setmfact(const Arg *arg);
-static void setmfactreset(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
@@ -1819,11 +1818,6 @@ setmfact(const Arg *arg)
 	if (!arg || !selmon->lt[selmon->sellt]->arrange)
 		return;
 	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
-	/** reset the nodes width as per mfact */
-	if (!arg->f) {
-		f = mfact;
-	}
-	/****/
 	if (f < 0.1 || f > 0.9)
 		return;
 	selmon->mfact = f;
