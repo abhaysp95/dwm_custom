@@ -1,0 +1,39 @@
+From 7c7149d361bf76d2b66a77139b529017fdd8624e Mon Sep 17 00:00:00 2001
+From: coolabhays <abhaysp9955@gmail.com>
+Date: Fri, 12 Feb 2021 13:51:07 +0530
+Subject: [PATCH] reset the width of nodes as per mfact's value
+
+---
+ config.def.h | 1 +
+ dwm.c        | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/config.def.h b/config.def.h
+index 1c0b587..19191cb 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -70,6 +70,7 @@ static Key keys[] = {
+ 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+ 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+ 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
++	{ MODKEY|ShiftMask,             XK_i,      setmfact,       {.f = 0.0 } },
+ 	{ MODKEY,                       XK_Return, zoom,           {0} },
+ 	{ MODKEY,                       XK_Tab,    view,           {0} },
+ 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+diff --git a/dwm.c b/dwm.c
+index 4465af1..06586bf 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1520,6 +1520,9 @@ setmfact(const Arg *arg)
+ 	if (!arg || !selmon->lt[selmon->sellt]->arrange)
+ 		return;
+ 	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
++	if (!arg->f) {
++		f = mfact;
++	}
+ 	if (f < 0.1 || f > 0.9)
+ 		return;
+ 	selmon->mfact = f;
+-- 
+2.30.0
+
