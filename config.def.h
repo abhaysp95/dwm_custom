@@ -16,7 +16,7 @@ static unsigned int gappov    		= 8;       /* vert outer gap between windows and
 static int smartgaps          		= 1;        /* 1 means no outer gap when there is only one window */
 static int showbar                  	= 1;        /* 0 means no bar */
 static int topbar                   	= 1;        /* 0 means bottom bar */
-static const char *fonts[]          	= { "Fira Mono:style=Medium:size=10" };
+static const char *fonts[]          	= { "Fantasque Sans Mono:style=Regular:size=12" };
 static const char dmenufont[]       	= "monospace:size=10";
 static char normbgcolor[]           	= "#222222";
 static char normbordercolor[]       	= "#444444";
@@ -238,6 +238,7 @@ static Key keys[] = {
 	/** resize nodes left/right */
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ControlMask            XK_i,      setmfact,       {.f  =  0.0} },
 
 	/** rotate between tags in use */
 	{ MODKEY,                       XK_Tab,    view,           {0} },
