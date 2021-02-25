@@ -129,12 +129,12 @@ static const char* sectermcmd[] = { "termite", NULL };
  * Xresources preferences to load at startup
  */
 ResourcePref resources[] = {
-		{ "color0", 		STRING,	&normbordercolor },
+		{ "background", 		STRING,	&normbordercolor },
 		{ "color4",		STRING, &selbordercolor },
-		{ "color0",        	STRING,  &normbgcolor },
+		{ "background",        	STRING,  &normbgcolor },
 		{ "color4",        	STRING,  &normfgcolor },
 		{ "color4",         	STRING,  &selbgcolor },
-		{ "color0",         	STRING,  &selfgcolor },
+		{ "background",         	STRING,  &selfgcolor },
 		{ "borderpx",          	INTEGER, &borderpx },
 		{ "snap",          	INTEGER, &snap },
 		{ "showbar",          	INTEGER, &showbar },
