@@ -16,7 +16,7 @@ static unsigned int gappov    		= 8;       /* vert outer gap between windows and
 static int smartgaps          		= 1;        /* 1 means no outer gap when there is only one window */
 static int showbar                  	= 1;        /* 0 means no bar */
 static int topbar                   	= 1;        /* 0 means bottom bar */
-static const int user_bh            = 0;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 20;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
 static const char *fonts[]          	= { "Fantasque Sans Mono:style=Regular:size=12" };
