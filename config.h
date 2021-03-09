@@ -223,12 +223,15 @@ static Key keys[] = {
 	{ MODKEY,			XK_Scroll_Lock,		spawn,		SHCMD("killall screenkey || screenkey -s small --font-size small -g 400x750+900-0 &") },
 
 	/** screenshot and screen recording */
+	/**  currently MODKEYALT isn't working, so reducing the binding **/
+	/** reduced bindings: **/
+	/** 1. sshots --window **/
+	/** 2. sshots --specific **/
+	/** 2. recsreen --only-video **/
+	/** 3. recscreen --only-audio **/
 	{ MODKEY,			XK_Print,		spawn,		SHCMD("sshots --full") },
-	{ MODKEYALT|ControlMask,	XK_Print,		spawn,		SHCMD("sshots --window") },
-	{ MODKEYALT|ShiftMask,		XK_Print,		spawn,		SHCMD("sshots --specific") },
-	{ MODKEY|ShiftMask,		XK_Print,		spawn,		SHCMD("recscreen") },
-	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen --only-video") },
-	{ MODKEY|MODKEYALT,		XK_Print,		spawn,		SHCMD("recscreen --only-audio") },
+	{ MODKEY|ShiftMask,		XK_Print,		spawn,		SHCMD("sshots --dmenu") },
+	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen") },
 
 	/** move nodes up/down in stack */
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
