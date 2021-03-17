@@ -16,10 +16,10 @@ static unsigned int gappov    		= 8;       /* vert outer gap between windows and
 static int smartgaps          		= 1;        /* 1 means no outer gap when there is only one window */
 static int showbar                  	= 1;        /* 0 means no bar */
 static int topbar                   	= 1;        /* 0 means bottom bar */
-static const int user_bh            = 18;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int user_bh            = 16;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
-static const char *fonts[]          	= { "Fantasque Sans Mono:style=Regular:size=11" };
+static const char *fonts[]          	= { "UbuntuMono Nerd Font Mono:style=Regular:size=10" };
 static const char dmenufont[]       	= "monospace:size=10";
 static char normbgcolor[]           	= "#222222";
 static char normbordercolor[]       	= "#444444";
@@ -123,7 +123,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-i", "-p", "exec:", "-c", "-l", "25", NULL };
-static const char *termcmd[]  = { "kitty" , NULL };
+static const char *termcmd[]  = { "alacritty" , NULL };
 
 /* User defined commnads */
 static const char* sectermcmd[] = { "termite", NULL };
