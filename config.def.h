@@ -133,10 +133,10 @@ static const char* sectermcmd[] = { "termite", NULL };
  */
 ResourcePref resources[] = {
 		{ "background", 		STRING,	&normbordercolor },
-		{ "color4",		STRING, &selbordercolor },
+		{ "color1",		STRING, &selbordercolor },
 		{ "background",        	STRING,  &normbgcolor },
-		{ "color4",        	STRING,  &normfgcolor },
-		{ "color4",         	STRING,  &selbgcolor },
+		{ "color1",        	STRING,  &normfgcolor },
+		{ "color1",         	STRING,  &selbgcolor },
 		{ "background",         	STRING,  &selfgcolor },
 		{ "borderpx",          	INTEGER, &borderpx },
 		{ "snap",          	INTEGER, &snap },
