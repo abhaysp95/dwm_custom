@@ -16,9 +16,10 @@ static unsigned int gappov    		= 8;       /* vert outer gap between windows and
 static int smartgaps          		= 1;        /* 1 means no outer gap when there is only one window */
 static int showbar                  	= 1;        /* 0 means no bar */
 static int topbar                   	= 1;        /* 0 means bottom bar */
+static const int user_bh            = 16;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
-static const char *fonts[]          	= { "Fantasque Sans Mono:style=Regular:size=12" };
+static const char *fonts[]          	= { "UbuntuMono Nerd Font Mono:style=Regular:size=10" };
 static const char dmenufont[]       	= "monospace:size=10";
 static char normbgcolor[]           	= "#222222";
 static char normbordercolor[]       	= "#444444";
@@ -63,16 +64,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "LibreWolf",    NULL,       NULL,       	    1 << 1,       0,           0,         0,        -1 },
-	{ "TelegramDesktop",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
-	{ "Lxappearance",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
-	{ "Zathura",    NULL,       NULL,       	    1 << 8,       1,           0,         0,        -1 },
-	{ "mpv",    NULL,       NULL,       	    1 << 3,       1,           0,         0,        -1 },
-	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
-	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
-	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
+	/* class                       instance   title        tags mask  isfloating isterminal noswallow monitor */
+	{ "LibreWolf"                  , NULL    , NULL          , 	 1 << 1   , 0     , 0        , 0      , -1 } ,
+	{ "TelegramDesktop"            , NULL    , NULL          , 	 1 << 6   , 0     , 0        , 0      , -1 } ,
+	{ "Tk"                         , NULL    , NULL          ,   0        , 1     , 0        , 0      , -1 } ,
+	{ "Lxappearance"               , NULL    , NULL          , 	 1 << 6   , 0     , 0        , 0      , -1 } ,
+	{ "Zathura"                    , NULL    , NULL          , 	 1 << 8   , 1     , 0        , 0      , -1 } ,
+	{ "mpv"                        , NULL    , NULL          , 	 1 << 3   , 1     , 0        , 0      , -1 } ,
+	{ "PacketTracer7"              , NULL    , NULL          ,   1 << 4   , 1     , 0        , 0      , -1 } ,
+	{ TERMCLASS                    , NULL    , NULL          , 	 0        , 0     , 1        , 0      , -1 } ,
+	{ NULL                         , NULL    , "Event Tester",   0        , 0     , 0        , 1      , -1 } ,
+	{ NULL                         , "spterm", NULL          , 	 SPTAG(0) , 1     , 1        , 0      , -1 } ,
+	{ NULL                         , "spcalc", NULL          , 	 SPTAG(1) , 1     , 1        , 0      , -1 } ,
 };
 
 /* layout(s) */
@@ -132,10 +135,10 @@ static const char* sectermcmd[] = { "termite", NULL };
  */
 ResourcePref resources[] = {
 		{ "background", 		STRING,	&normbordercolor },
-		{ "color4",		STRING, &selbordercolor },
+		{ "color1",		STRING, &selbordercolor },
 		{ "background",        	STRING,  &normbgcolor },
-		{ "color4",        	STRING,  &normfgcolor },
-		{ "color4",         	STRING,  &selbgcolor },
+		{ "color1",        	STRING,  &normfgcolor },
+		{ "color1",         	STRING,  &selbgcolor },
 		{ "background",         	STRING,  &selfgcolor },
 		{ "borderpx",          	INTEGER, &borderpx },
 		{ "snap",          	INTEGER, &snap },
@@ -222,12 +225,15 @@ static Key keys[] = {
 	{ MODKEY,			XK_Scroll_Lock,		spawn,		SHCMD("killall screenkey || screenkey -s small --font-size small -g 400x750+900-0 &") },
 
 	/** screenshot and screen recording */
+	/**  currently MODKEYALT isn't working, so reducing the binding **/
+	/** reduced bindings: **/
+	/** 1. sshots --window **/
+	/** 2. sshots --specific **/
+	/** 2. recsreen --only-video **/
+	/** 3. recscreen --only-audio **/
 	{ MODKEY,			XK_Print,		spawn,		SHCMD("sshots --full") },
-	{ MODKEYALT|ControlMask,	XK_Print,		spawn,		SHCMD("sshots --window") },
-	{ MODKEYALT|ShiftMask,		XK_Print,		spawn,		SHCMD("sshots --specific") },
-	{ MODKEY|ShiftMask,		XK_Print,		spawn,		SHCMD("recscreen") },
-	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen --only-video") },
-	{ MODKEY|MODKEYALT,		XK_Print,		spawn,		SHCMD("recscreen --only-audio") },
+	{ MODKEY|ShiftMask,		XK_Print,		spawn,		SHCMD("sshots --dmenu") },
+	{ MODKEY|ControlMask,		XK_Print,		spawn,		SHCMD("recscreen") },
 
 	/** move nodes up/down in stack */
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
