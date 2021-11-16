@@ -64,16 +64,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "LibreWolf",    NULL,       NULL,       	    1 << 1,       0,           0,         0,        -1 },
-	{ "TelegramDesktop",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
-	{ "Lxappearance",    NULL,       NULL,       	    1 << 6,       0,           0,         0,        -1 },
-	{ "Zathura",    NULL,       NULL,       	    1 << 8,       1,           0,         0,        -1 },
-	{ "mpv",    NULL,       NULL,       	    1 << 3,       1,           0,         0,        -1 },
-	{ TERMCLASS,   NULL,       NULL,       	    0,            0,           1,         0,        -1 },
-	{ NULL,       NULL,       "Event Tester",   0,            0,           0,         1,        -1 },
-	{ NULL,      "spterm",    NULL,       	    SPTAG(0),     1,           1,         0,        -1 },
-	{ NULL,      "spcalc",    NULL,       	    SPTAG(1),     1,           1,         0,        -1 },
+	/* class                       instance   title        tags mask  isfloating isterminal noswallow monitor */
+	{ "LibreWolf"                  , NULL    , NULL          , 	 1 << 1   , 0     , 0        , 0      , -1 } ,
+	{ "TelegramDesktop"            , NULL    , NULL          , 	 1 << 6   , 0     , 0        , 0      , -1 } ,
+	{ "Tk"                         , NULL    , NULL          ,   0        , 1     , 0        , 0      , -1 } ,
+	{ "Lxappearance"               , NULL    , NULL          , 	 1 << 6   , 0     , 0        , 0      , -1 } ,
+	{ "Zathura"                    , NULL    , NULL          , 	 1 << 8   , 1     , 0        , 0      , -1 } ,
+	{ "mpv"                        , NULL    , NULL          , 	 1 << 3   , 1     , 0        , 0      , -1 } ,
+	{ "PacketTracer7"              , NULL    , NULL          ,   1 << 4   , 1     , 0        , 0      , -1 } ,
+	{ TERMCLASS                    , NULL    , NULL          , 	 0        , 0     , 1        , 0      , -1 } ,
+	{ NULL                         , NULL    , "Event Tester",   0        , 0     , 0        , 1      , -1 } ,
+	{ NULL                         , "spterm", NULL          , 	 SPTAG(0) , 1     , 1        , 0      , -1 } ,
+	{ NULL                         , "spcalc", NULL          , 	 SPTAG(1) , 1     , 1        , 0      , -1 } ,
 };
 
 /* layout(s) */
